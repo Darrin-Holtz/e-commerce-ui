@@ -31,31 +31,22 @@ import { Button } from "./ui/button";
 const formSchema = z.object({
   fullName: z
     .string()
-    .min(2, { message: "Full Name must be at least 2 characters!" })
+    .min(2, { message: "Full name must be at least 2 characters!" })
     .max(50),
   email: z.string().email({ message: "Invalid email address!" }),
   phone: z.string().min(10).max(15),
   address: z.string().min(2),
   city: z.string().min(2),
-  zipCode: z.string().min(2),
 });
 
-const EditUser = () => {
+const AddUser = () => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: {
-      fullName: "John Doe",
-      email: "john.doe@gmail.com",
-      phone: "+1 234 5678",
-      address: "123 Main St",
-      city: "New York, NY",
-      zipCode: "10001",
-    },
   });
   return (
     <SheetContent>
       <SheetHeader>
-        <SheetTitle className="mb-4">Edit User</SheetTitle>
+        <SheetTitle className="mb-4">Add User</SheetTitle>
         <SheetDescription asChild>
           <Form {...form}>
             <form className="space-y-8">
@@ -69,7 +60,7 @@ const EditUser = () => {
                       <Input {...field} />
                     </FormControl>
                     <FormDescription>
-                      Enter Your Full Name.
+                      Enter user full name.
                     </FormDescription>
                     <FormMessage />
                   </FormItem>
@@ -101,7 +92,7 @@ const EditUser = () => {
                       <Input {...field} />
                     </FormControl>
                     <FormDescription>
-                      Only admin can see your phone number. (Optional)
+                      Only admin can see your phone number (optional)
                     </FormDescription>
                     <FormMessage />
                   </FormItem>
@@ -117,7 +108,7 @@ const EditUser = () => {
                       <Input {...field} />
                     </FormControl>
                     <FormDescription>
-                      Enter Your Address. (Optional)
+                      Enter user address (optional)
                     </FormDescription>
                     <FormMessage />
                   </FormItem>
@@ -133,23 +124,7 @@ const EditUser = () => {
                       <Input {...field} />
                     </FormControl>
                     <FormDescription>
-                      Enter Your City. (Optional)
-                    </FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="zipCode"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Zip Code</FormLabel>
-                    <FormControl>
-                      <Input {...field} />
-                    </FormControl>
-                    <FormDescription>
-                      Enter Your Zip Code. (Optional)
+                      Enter user city (optional)
                     </FormDescription>
                     <FormMessage />
                   </FormItem>
@@ -164,4 +139,4 @@ const EditUser = () => {
   );
 };
 
-export default EditUser;
+export default AddUser;
