@@ -1,5 +1,5 @@
 import ProductInteraction from "@/components/ProductInteraction";
-import { ProductType } from "@/types";
+import { ProductType } from "@e-commerce-ui/types";
 import Image from "next/image";
 
 // TEMPORARY
@@ -21,7 +21,6 @@ const product: ProductType = {
 };
 
 export const generateMetadata = async ({
-  params,
 }: {
   params: { id: string };
 }) => {
@@ -34,7 +33,6 @@ export const generateMetadata = async ({
 };
 
 const ProductPage = async ({
-  params,
   searchParams,
 }: {
   params: Promise<{ id: string }>;

@@ -1,4 +1,4 @@
-import { ProductType } from "@/types";
+import { ProductType } from "@e-commerce-ui/types";
 import Categories from "./Categories";
 import ProductCard from "./ProductCard";
 import Link from "next/link";

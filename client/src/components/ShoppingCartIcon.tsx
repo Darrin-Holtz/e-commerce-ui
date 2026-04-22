@@ -2,7 +2,6 @@
 
 import Link from "next/link"
 import { ShoppingCart } from "lucide-react"
-import CartPage from "@/app/cart/page"
 import useCartStore from "@/stores/cartStore"
 
 const ShoppingCartIcon = () => {
