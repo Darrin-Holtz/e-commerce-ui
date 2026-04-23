@@ -5,7 +5,11 @@
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev",
+    "dev:admin": "turbo run dev --filter=@e-commerce-ui/admin",
+    "dev:client": "turbo run dev --filter=@e-commerce-ui/client",
     "lint": "turbo run lint",
+    "lint:admin": "turbo run lint --filter=@e-commerce-ui/admin",
+    "lint:client": "turbo run lint --filter=@e-commerce-ui/client",
     "start": "turbo run start",
     "clean": "rm -rf .turbo node_modules"
   },

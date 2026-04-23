@@ -2,12 +2,12 @@
 
 import PaymentForm from "@/components/PaymentForm";
 import ShippingForm from "@/components/ShippingForm";
+import { ShippingFormInputs } from "@/lib/formSchemas";
 import useCartStore from "@/stores/cartStore";
-import { ShippingFormInputs } from "@e-commerce-ui/types";
 import { ArrowRight, Trash2 } from "lucide-react";
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useState } from "react";
+import { Suspense, useState } from "react";
 
 const steps = [
   {
@@ -80,9 +80,7 @@ const steps = [
 //      selectedColor: "black",
 //    },
 //  ];
-
-
-const CartPage = () => {
+const CartPageContent = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
   const [shippingForm, setShippingForm] = useState<ShippingFormInputs | null>(null);
@@ -178,5 +176,13 @@ const CartPage = () => {
     </div>
   )
 }
+
+const CartPage = () => {
+  return (
+    <Suspense fallback={<div className="mt-12 text-center text-sm text-gray-500">Loading cart...</div>}>
+      <CartPageContent />
+    </Suspense>
+  );
+};
 
 export default CartPage

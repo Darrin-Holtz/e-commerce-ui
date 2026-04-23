@@ -20,10 +20,7 @@ const product: ProductType = {
   },
 };
 
-export const generateMetadata = async ({
-}: {
-  params: { id: string };
-}) => {
+export const generateMetadata = async () => {
   // TODO:get the product from db
   // TEMPORARY
   return {
