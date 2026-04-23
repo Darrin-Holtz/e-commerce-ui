@@ -5,18 +5,18 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb";
+} from "@e-commerce-ui/ui";
 import {
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
-} from "@/components/ui/hover-card";
-import { Progress } from "@/components/ui/progress";
+} from "@e-commerce-ui/ui";
+import { Progress } from "@e-commerce-ui/ui";
 import { BadgeCheck, Candy, Citrus, Shield } from "lucide-react";
-import { Sheet, SheetTrigger } from "@/components/ui/sheet";
-import { Button } from "@/components/ui/button";
+import { Sheet, SheetTrigger } from "@e-commerce-ui/ui";
+import { Button } from "@e-commerce-ui/ui";
 import EditUser from "@/components/EditUser";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "@e-commerce-ui/ui";
 import AppLineChart from "@/components/AppLineChart";
 
 const SingleUserPage = () => {

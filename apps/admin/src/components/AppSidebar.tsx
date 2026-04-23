@@ -26,7 +26,7 @@ import {
   SidebarMenuItem,
 
   SidebarSeparator,
-} from "./ui/sidebar";
+} from "@e-commerce-ui/ui";
 import Link from "next/link";
 import Image from "next/image";
 import {
@@ -34,8 +34,8 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "./ui/dropdown-menu";
-import { Sheet, SheetTrigger } from "./ui/sheet";
+} from "@e-commerce-ui/ui";
+import { Sheet, SheetTrigger } from "@e-commerce-ui/ui";
 import AddOrder from "./AddOrder";
 import AddProduct from "./AddProduct";
 import AddCategory from "./AddCategory";

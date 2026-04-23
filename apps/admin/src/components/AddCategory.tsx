@@ -5,7 +5,7 @@ import {
   SheetDescription,
   SheetHeader,
   SheetTitle,
-} from "@/components/ui/sheet";
+} from "@e-commerce-ui/ui";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -17,9 +17,9 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "./ui/form";
-import { Input } from "./ui/input";
-import { Button } from "./ui/button";
+} from "@e-commerce-ui/ui";
+import { Input } from "@e-commerce-ui/ui";
+import { Button } from "@e-commerce-ui/ui";
 
 const formSchema = z.object({
   name: z.string().min(1, { message: "Name is Required!" }),

@@ -1,6 +1,6 @@
 import Image from "next/image";
-import { Card, CardContent, CardFooter, CardTitle } from "./ui/card";
-import { Badge } from "./ui/badge";
+import { Card, CardContent, CardFooter, CardTitle } from "@e-commerce-ui/ui";
+import { Badge } from "@e-commerce-ui/ui";
 
 const popularProducts = [
   {

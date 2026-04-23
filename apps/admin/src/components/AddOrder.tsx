@@ -5,7 +5,7 @@ import {
   SheetDescription,
   SheetHeader,
   SheetTitle,
-} from "@/components/ui/sheet";
+} from "@e-commerce-ui/ui";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -17,16 +17,16 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "./ui/form";
-import { Input } from "./ui/input";
+} from "@e-commerce-ui/ui";
+import { Input } from "@e-commerce-ui/ui";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { Button } from "./ui/button";
+} from "@e-commerce-ui/ui";
+import { Button } from "@e-commerce-ui/ui";
 
 const formSchema = z.object({
   amount: z.number().min(1, { message: "Amount must be at least 1!" }),

@@ -1,7 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  transpilePackages: ["@e-commerce-ui/types", "@e-commerce-ui/ui"],
   images:{
     remotePatterns:[
       {

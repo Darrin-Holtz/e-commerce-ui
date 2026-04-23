@@ -5,7 +5,7 @@ import {
   SheetDescription,
   SheetHeader,
   SheetTitle,
-} from "@/components/ui/sheet";
+} from "@e-commerce-ui/ui";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -17,19 +17,19 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "./ui/form";
-import { Input } from "./ui/input";
+} from "@e-commerce-ui/ui";
+import { Input } from "@e-commerce-ui/ui";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { Button } from "./ui/button";
-import { Textarea } from "./ui/textarea";
-import { Checkbox } from "./ui/checkbox";
-import { ScrollArea } from "./ui/scroll-area";
+} from "@e-commerce-ui/ui";
+import { Button } from "@e-commerce-ui/ui";
+import { Textarea } from "@e-commerce-ui/ui";
+import { Checkbox } from "@e-commerce-ui/ui";
+import { ScrollArea } from "@e-commerce-ui/ui";
 
 const categories = [
   "T-shirts",

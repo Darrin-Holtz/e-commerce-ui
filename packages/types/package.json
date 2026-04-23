@@ -11,6 +11,9 @@
     "lint": "tsc --noEmit",
     "build": "tsc --emitDeclarationOnly --outDir dist"
   },
+  "dependencies": {
+    "zod": "^3.24.2"
+  },
   "devDependencies": {
     "typescript": "^5"
   }

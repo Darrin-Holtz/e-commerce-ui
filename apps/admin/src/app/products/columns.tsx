@@ -1,7 +1,7 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
+import { Button } from "@e-commerce-ui/ui";
+import { Checkbox } from "@e-commerce-ui/ui";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -9,22 +9,14 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+} from "@e-commerce-ui/ui";
+import type { ProductType } from "@e-commerce-ui/types";
 import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown, MoreHorizontal } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
-export type Product = {
-  id: string | number;
-  price: number;
-  name: string;
-  shortDescription: string;
-  description: string;
-  sizes: string[];
-  colors: string[];
-  images: Record<string, string>;
-};
+export type Product = ProductType;
 
 export const columns: ColumnDef<Product>[] = [
   {
