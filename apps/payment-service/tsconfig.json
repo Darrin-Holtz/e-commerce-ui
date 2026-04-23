@@ -1,0 +1,10 @@
+{
+	"extends": "../../packages/typescript-config/node-service.json",
+	"compilerOptions": {
+		"rootDir": "src",
+		"outDir": "dist",
+		"noEmit": false,
+		"types": ["node"]
+	},
+	"include": ["src/**/*.ts"]
+}

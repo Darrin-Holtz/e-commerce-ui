@@ -8,6 +8,7 @@
     ".": "./src/index.ts"
   },
   "scripts": {
+    "check-types": "tsc --noEmit",
     "lint": "tsc --noEmit",
     "build": "tsc --emitDeclarationOnly --outDir dist"
   },
@@ -15,6 +16,7 @@
     "zod": "^3.24.2"
   },
   "devDependencies": {
+    "@e-commerce-ui/typescript-config": "workspace:*",
     "typescript": "^5"
   }
 }
