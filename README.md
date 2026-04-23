@@ -4,8 +4,8 @@ This repository is a pnpm workspace and Turborepo monorepo.
 
 ## Apps
 
-- `client` - storefront app on port `3000`
-- `admin` - admin app on port `3001`
+- `apps/client` - storefront app on port `3000`
+- `apps/admin` - admin app on port `3001`
 
 ## Shared Packages
 

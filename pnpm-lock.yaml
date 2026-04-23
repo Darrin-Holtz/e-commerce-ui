@@ -12,7 +12,7 @@ importers:
         specifier: ^2.5.6
         version: 2.9.6
 
-  admin:
+  apps/admin:
     dependencies:
       '@hookform/resolvers':
         specifier: ^5.0.1
@@ -133,14 +133,14 @@ importers:
         specifier: ^5
         version: 5.9.3
 
-  client:
+  apps/client:
     dependencies:
       '@e-commerce-ui/types':
         specifier: workspace:*
-        version: link:../packages/types
+        version: link:../../packages/types
       '@e-commerce-ui/ui':
         specifier: workspace:*
-        version: link:../packages/ui
+        version: link:../../packages/ui
       '@hookform/resolvers':
         specifier: ^5.2.2
         version: 5.2.2(react-hook-form@7.73.1(react@19.1.0))

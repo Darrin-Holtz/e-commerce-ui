@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Card } from "./ui/card";
 import { Checkbox } from "./ui/checkbox";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
@@ -11,8 +11,13 @@ import { format } from "date-fns";
 import { Calendar } from "./ui/calendar";
 
 const TodoList = () => {
-  const [date, setDate] = useState<Date | undefined>(new Date());
+  const [date, setDate] = useState<Date | undefined>(undefined);
   const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    setDate(new Date());
+  }, []);
+
   return (
     <div className="">
       <h1 className="text-lg font-medium mb-6">Todo List</h1>
