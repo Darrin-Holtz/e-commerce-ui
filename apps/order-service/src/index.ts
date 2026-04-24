@@ -1,12 +1,13 @@
 import Fastify from 'fastify';
+import { clerkPlugin, getAuth } from '@clerk/fastify';
 
-const fastify = Fastify({
-  logger: true,
-});
+const fastify = Fastify();
 
 fastify.get('/', async (request, reply) => {
   return reply.send('Order endpoint works!');
 });
+
+fastify.register(clerkPlugin)
 
 fastify.get('/health', async () => {
   return {
@@ -16,12 +17,12 @@ fastify.get('/health', async () => {
   };
 });
 
-fastify.get('/test', async () => {
-  return {
-    service: 'order-service',
-    message: 'Order test endpoint works!',
-    timestamp: new Date().toISOString(),
-  };
+fastify.get('/test', async (request, reply) => {
+  const { userId } = getAuth(request);
+  if(!userId) {
+   return reply.send({ error: 'Unauthorized' });
+  }
+   return reply.send({ message: `Hello, user ${userId}!` });
 });
 
 const start = async () => {
