@@ -7,7 +7,8 @@ import categoryRouter from './routes/category.route.js';
 
 const app = express();
 app.use(cors({
-    origin: ['http://localhost:3000', 'http://localhost:3001'], credentials: true
+    origin: (origin, callback) => callback(null, true),
+    credentials: true
 }))
 
 app.use(express.json());
@@ -32,6 +33,10 @@ app.get('/test', shouldBeUser, (req: Request, res: Response) => {
 app.use("/products", productRouter);
 app.use("/categories", categoryRouter);
 
+app.use((err: any, req: Request, res: Response, next: Function) => {
+    console.error(err);
+    return res.status(err.status || 500).json({ message: err.message || 'Internal Server Error' });
+});
 
 app.listen(8000, () => {
     console.log('Product service is running on port 8000');
