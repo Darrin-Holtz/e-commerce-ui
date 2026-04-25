@@ -15,7 +15,8 @@
   "dependencies": {
     "@clerk/express": "^2.1.7",
     "cors": "^2.8.6",
-    "express": "^5.2.1"
+    "express": "^5.2.1",
+    "@repo/product-db": "workspace:*"
   },
   "devDependencies": {
     "@e-commerce-ui/typescript-config": "workspace:*",

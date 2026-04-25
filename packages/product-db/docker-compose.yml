@@ -1,0 +1,20 @@
+services:
+  postgres-product-db:
+    image: postgres:16
+    container_name: postgres-product-db
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: "Areacode#716"
+      POSTGRES_DB: "products"
+      POSTGRES_USER: "admin"
+    volumes:
+      - postgres_product_db_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U admin -d products"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  postgres_product_db_data:
