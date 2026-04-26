@@ -1,5 +1,6 @@
 import { clerkClient, getAuth } from "@clerk/express";
 import { Request, Response, NextFunction } from "express";
+import type { CustomJwtSessionClaims } from "@e-commerce-ui/types";
 
 type RoleMetadata = {
     role?: string;
@@ -41,7 +42,9 @@ export const shouldBeAdmin = async (req: Request, res: Response, next: NextFunct
     const unsafeRole = (user.unsafeMetadata as RoleMetadata | undefined)?.role
     const role = tokenRole ?? publicRole ?? privateRole ?? unsafeRole
 
-    if (role !== 'admin') {
+    const claims = auth.sessionClaims as CustomJwtSessionClaims;
+    
+    if (claims.metadata?.role !== 'admin') {
         return res.status(403).json({ message: 'You are not authorized' })
     }
 

@@ -2,7 +2,7 @@ import { SignUp } from '@clerk/nextjs'
 import { auth } from '@clerk/nextjs/server'
 import { redirect } from 'next/navigation'
 import AuthRedirect from '@/components/AuthRedirect'
-import { getSafeRedirectPath } from '../../sign-in/[[...sign-in]]/page'
+import { getSafeRedirectPath } from '@/lib/get-safe-redirect-path'
 
 type SignUpPageProps = {
   searchParams: Promise<{ redirect_url?: string }>

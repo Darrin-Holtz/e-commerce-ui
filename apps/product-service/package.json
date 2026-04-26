@@ -21,6 +21,7 @@
   },
   "devDependencies": {
     "@e-commerce-ui/typescript-config": "workspace:*",
+    "@e-commerce-ui/types": "workspace:*",
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.6",
     "typescript": "^5"
