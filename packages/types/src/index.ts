@@ -1,3 +1,4 @@
-export * from "./auth.js";
-export * from "./cart.js";
-export * from "./commerce.js";
+export * from "./auth";
+export * from "./cart";
+export * from "./commerce";
+export * from "./product";

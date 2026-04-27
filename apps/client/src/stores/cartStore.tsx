@@ -7,6 +7,7 @@ const useCartStore = create<CartStoreStateType & CartStoreActionsType>()(
         (set) => ({
             cart: [],
             hasHydrated: false,
+            shippingForm: null,
             addToCart: (product) => set((state) => {
                 const existingProductIndex = state.cart.findIndex(p => 
                     p.id === product.id && 
@@ -35,6 +36,7 @@ const useCartStore = create<CartStoreStateType & CartStoreActionsType>()(
                         ) 
                     })),
             clearCart: () => set({ cart: [] }),
+            setShippingForm: (data) => set({ shippingForm: data }),
         }),
         {
             name: "cart",

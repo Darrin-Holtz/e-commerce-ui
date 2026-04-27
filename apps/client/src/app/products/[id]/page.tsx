@@ -3,7 +3,7 @@ import { ProductType } from "@e-commerce-ui/types";
 import Image from "next/image";
 
 // TEMPORARY
-const product: ProductType = {
+const baseProduct: ProductType = {
   id: 1,
   name: "Adidas CoreFit T-Shirt",
   shortDescription:
@@ -24,18 +24,26 @@ export const generateMetadata = async () => {
   // TODO:get the product from db
   // TEMPORARY
   return {
-    title: product.name,
-    describe: product.description,
+    title: baseProduct.name,
+    describe: baseProduct.description,
   };
 };
 
 const ProductPage = async ({
+  params,
   searchParams,
 }: {
   params: Promise<{ id: string }>;
   searchParams: Promise<{ color: string; size: string }>;
 }) => {
+  const { id } = await params;
   const { size, color } = await searchParams;
+
+  const parsedId = Number(id);
+  const product: ProductType = {
+    ...baseProduct,
+    id: Number.isFinite(parsedId) ? parsedId : id,
+  };
 
   const selectedSize = size || (product.sizes[0] as string);
   const selectedColor = color || (product.colors[0] as string);

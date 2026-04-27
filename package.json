@@ -5,7 +5,7 @@
   "scripts": {
     "build": "turbo run build",
     "check-types": "turbo run check-types",
-    "dev": "turbo run dev",
+    "dev": "turbo run dev --ui=stream",
     "dev:admin": "turbo run dev --filter=@e-commerce-ui/admin",
     "dev:client": "turbo run dev --filter=@e-commerce-ui/client",
     "lint": "turbo run lint",
@@ -17,5 +17,11 @@
   "devDependencies": {
     "turbo": "^2.5.6",
     "typescript": "^5"
+  },
+  "pnpm": {
+    "overrides": {
+      "react": "19.1.4",
+      "react-dom": "19.1.4"
+    }
   }
 }

@@ -43,7 +43,7 @@ const ShippingForm = ({ setShippingForm }: { setShippingForm: (data: ShippingFor
           type="email"
           id="email"
           placeholder="johndoe@gmail.com"
-          {...register("email")}
+          {...register("email")}          
         />
         {errors.email && (
           <p className="text-xs text-red-500">{errors.email.message}</p>
@@ -58,7 +58,7 @@ const ShippingForm = ({ setShippingForm }: { setShippingForm: (data: ShippingFor
           type="text"
           id="phone"
           placeholder="123456789"
-          {...register("phone")}
+          {...register("phone")}          
         />
         {errors.phone && (
           <p className="text-xs text-red-500">{errors.phone.message}</p>
@@ -73,7 +73,7 @@ const ShippingForm = ({ setShippingForm }: { setShippingForm: (data: ShippingFor
           type="text"
           id="address"
           placeholder="123 Main St, Anytown"
-          {...register("address")}
+          {...register("address")}          
         />
         {errors.address && (
           <p className="text-xs text-red-500">{errors.address.message}</p>
@@ -88,10 +88,25 @@ const ShippingForm = ({ setShippingForm }: { setShippingForm: (data: ShippingFor
           type="text"
           id="city"
           placeholder="New York"
-          {...register("city")}
+          {...register("city")}          
         />
         {errors.city && (
           <p className="text-xs text-red-500">{errors.city.message}</p>
+        )}
+      </div>
+      <div className="flex flex-col gap-1">
+        <label htmlFor="state" className="text-xs text-gray-500 font-medium">
+          State
+        </label>
+        <input
+          className="border-b border-gray-200 py-2 outline-none text-sm"
+          type="text"
+          id="state"
+          placeholder="NY"
+          {...register("state")}
+        />
+        {errors.state && (
+          <p className="text-xs text-red-500">{errors.state.message}</p>
         )}
       </div>
       <div className="flex flex-col gap-1">
@@ -103,7 +118,7 @@ const ShippingForm = ({ setShippingForm }: { setShippingForm: (data: ShippingFor
           type="text"
           id="postalCode"
           placeholder="10001"
-          {...register("postalCode")}
+          {...register("postalCode")}          
         />
         {errors.postalCode && (
           <p className="text-xs text-red-500">{errors.postalCode.message}</p>

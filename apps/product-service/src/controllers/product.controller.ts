@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { prisma, Prisma } from "@repo/product-db";
+import { prisma, Prisma } from "@e-commerce-ui/product-db";
 
 export const createProduct = async (req: Request, res: Response) => {
   const data: Prisma.ProductCreateInput = req.body;

@@ -1,5 +1,5 @@
 {
-  "name": "product-service",
+  "name": "@e-commerce-ui/product-service",
   "version": "1.0.0",
   "description": "",
   "main": "src/index.ts",
@@ -17,7 +17,7 @@
     "@clerk/express": "^2.1.7",
     "cors": "^2.8.6",
     "express": "^5.2.1",
-    "@repo/product-db": "workspace:*"
+    "@e-commerce-ui/product-db": "workspace:*"
   },
   "devDependencies": {
     "@e-commerce-ui/typescript-config": "workspace:*",

@@ -1,12 +1,3 @@
 {
-  "extends": "@e-commerce-ui/typescript-config/base.json",
-  "compilerOptions": {
-    "lib": ["ES2020"],
-    "module": "ESNext",
-    "moduleResolution": "Bundler",
-    "declaration": true,
-    "declarationMap": true,
-    "noEmit": false
-  },
-  "include": ["src/**/*.ts"]
+  "extends": "@e-commerce-ui/typescript-config/node-service.json"
 }

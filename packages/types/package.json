@@ -1,7 +1,6 @@
 {
   "name": "@e-commerce-ui/types",
   "version": "0.1.0",
-  "private": true,
   "main": "./src/index.ts",
   "type": "module",
   "exports": {
@@ -16,6 +15,7 @@
     "build": "tsc --emitDeclarationOnly --outDir dist"
   },
   "dependencies": {
+    "@e-commerce-ui/product-db": "workspace:*",
     "zod": "^3.24.2"
   },
   "devDependencies": {

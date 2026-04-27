@@ -1,10 +1,22 @@
 import { serve } from '@hono/node-server'
 import { Hono } from 'hono'
-import { clerkMiddleware, getAuth } from '@hono/clerk-auth'
+import { clerkMiddleware } from '@hono/clerk-auth'
 import { shouldBeUser } from './middleware/authMiddleware.js'
+import sessionRoute from './routes/session.route.js'
+import productRoute from './routes/product.route.js'
+import webhooksRoute from './routes/webhooks.route.js'
+import { cors } from 'hono/cors'
+import { logger } from 'hono/logger'
 
 const app = new Hono()
+
+app.use('*', logger())
+
+// Webhooks must be registered before body-parsing middleware
+app.route("/webhooks", webhooksRoute)
+
 app.use('*', clerkMiddleware())
+app.use('*', cors({ origin: '*', allowMethods: ['GET', 'POST', 'PUT', 'DELETE'] }))
 
 app.get('/', (c) => {
   return c.text('Payment endpoint works!');
@@ -17,6 +29,9 @@ app.get('/health', (c) => {
     port: 8002,
   })
 })
+
+app.route("/sessions", sessionRoute)
+app.route("/products", productRoute)
 
 app.get('/test',shouldBeUser, (c) => {
   

@@ -4,7 +4,7 @@ import { shouldBeUser } from './middleware/authMiddleware.js';
 import { connectOrderDB } from '@repo/order-db';
 import { orderRoute } from './routes/order.js';
 
-const fastify = Fastify();
+const fastify = Fastify({ logger: true });
 
 fastify.get('/', async (request, reply) => {
   return reply.send('Order endpoint works!');

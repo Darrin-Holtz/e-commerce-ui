@@ -1,6 +1,5 @@
 "use client"
 
-import PaymentForm from "@/components/PaymentForm";
 import ShippingForm from "@/components/ShippingForm";
 import { ShippingFormInputs } from "@e-commerce-ui/types";
 import useCartStore from "@/stores/cartStore";
@@ -8,6 +7,7 @@ import { ArrowRight, Trash2 } from "lucide-react";
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useState } from "react";
+import StripePaymentForm from "@/components/StripePaymentForm";
 
 const steps = [
   {
@@ -83,11 +83,11 @@ const steps = [
 const CartPageContent = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
-  const [shippingForm, setShippingForm] = useState<ShippingFormInputs | null>(null);
+  // const [shippingForm, setShippingForm] = useState<ShippingFormInputs | null>(null);
 
   const activeStep = parseInt(searchParams.get("step") || "1");
 
-  const { cart, removeFromCart } = useCartStore();
+  const { cart, removeFromCart, shippingForm, setShippingForm } = useCartStore();
   return (
     <div className="flex flex-col gap-8 items-center justify-center mt-12">
       <h1 className="text-2xl font-medium">Your Shopping Cart</h1>
@@ -125,7 +125,7 @@ const CartPageContent = () => {
                       <p className="text-xs text-gray-500">Size: {item.selectedSize.toUpperCase()}</p>
                       <p className="text-xs text-gray-500">Color: {item.selectedColor}</p>
                     </div>
-                    <p className="font-medium">${(item.price * item.quantity).toFixed(2)}</p>
+                    <p className="font-medium">${(Number(item.price) * item.quantity).toFixed(2)}</p>
                   </div>
                 </div>
                 <button onClick={() => removeFromCart(item)} title="Remove item" className="w-8 h-8 rounded-full bg-red-100 text-red-400 hover:bg-red-200 transition-all duration-300 flex items-center justify-center cursor-pointer">
@@ -136,7 +136,7 @@ const CartPageContent = () => {
           ) : activeStep === 2 ? (
             <ShippingForm setShippingForm={setShippingForm} />
           ) : (
-            activeStep === 3 && shippingForm ? <PaymentForm /> : <p className="text-sm text-gray-500">Please fill in the shipping form to continue</p>
+            activeStep === 3 && shippingForm ? <StripePaymentForm shippingForm={shippingForm} />: <p className="text-sm text-gray-500">Please fill in the shipping form to continue</p>
           )}
         </div>
         <div className="w-full lg:w-5/12 shadow-lg border-1 border-gray-100 p-8 rounded-lg flex flex-col gap-8 h-max">

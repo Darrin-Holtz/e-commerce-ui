@@ -11,9 +11,9 @@
   },
   "dependencies": {
     "@clerk/nextjs": "^7.2.5",
-    "@e-commerce-ui/types": "workspace:*",
-    "@e-commerce-ui/ui": "workspace:*",
     "@hookform/resolvers": "^5.2.2",
+    "@stripe/react-stripe-js": "^3.10.0",
+    "@stripe/stripe-js": "^7.9.0",
     "lucide-react": "^1.8.0",
     "next": "15.4.5",
     "react": "19.1.4",
@@ -24,7 +24,9 @@
     "zustand": "^5.0.12"
   },
   "devDependencies": {
+    "@e-commerce-ui/types": "workspace:*",
     "@e-commerce-ui/typescript-config": "workspace:*",
+    "@e-commerce-ui/ui": "workspace:*",
     "@eslint/eslintrc": "^3",
     "@next/eslint-plugin-next": "15.4.5",
     "@tailwindcss/postcss": "^4",
