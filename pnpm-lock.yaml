@@ -191,7 +191,10 @@ importers:
       '@clerk/fastify':
         specifier: ^3.1.17
         version: 3.1.17(fastify@5.8.5)(react-dom@19.1.4(react@19.1.4))(react@19.1.4)
-      '@repo/order-db':
+      '@e-commerce-ui/kafka':
+        specifier: workspace:*
+        version: link:../../packages/kafka
+      '@e-commerce-ui/order-db':
         specifier: workspace:*
         version: link:../../packages/order-db
       fastify:
@@ -216,9 +219,9 @@ importers:
 
   apps/payment-service:
     dependencies:
-      '@e-commerce-ui/product-db':
+      '@e-commerce-ui/kafka':
         specifier: workspace:*
-        version: link:../../packages/product-db
+        version: link:../../packages/kafka
       '@hono/clerk-auth':
         specifier: ^3.1.1
         version: 3.1.1(hono@4.12.14)(react-dom@19.1.4(react@19.1.4))(react@19.1.4)
@@ -253,6 +256,9 @@ importers:
       '@clerk/express':
         specifier: ^2.1.7
         version: 2.1.7(express@5.2.1)(react-dom@19.1.4(react@19.1.4))(react@19.1.4)
+      '@e-commerce-ui/kafka':
+        specifier: workspace:*
+        version: link:../../packages/kafka
       '@e-commerce-ui/product-db':
         specifier: workspace:*
         version: link:../../packages/product-db
@@ -278,6 +284,19 @@ importers:
       typescript:
         specifier: ^5
         version: 5.9.3
+
+  packages/kafka:
+    dependencies:
+      kafkajs:
+        specifier: ^2.2.4
+        version: 2.2.4
+    devDependencies:
+      '@e-commerce-ui/typescript-config':
+        specifier: workspace:*
+        version: link:../typescript-config
+      '@types/node':
+        specifier: ^25.6.0
+        version: 25.6.0
 
   packages/order-db:
     dependencies:
@@ -322,6 +341,9 @@ importers:
 
   packages/types:
     dependencies:
+      '@e-commerce-ui/order-db':
+        specifier: workspace:*
+        version: link:../order-db
       '@e-commerce-ui/product-db':
         specifier: workspace:*
         version: link:../product-db
@@ -3033,6 +3055,10 @@ packages:
   jsx-ast-utils@3.3.5:
     resolution: {integrity: sha512-ZZow9HBI5O6EPgSJLUb8n2NKgmVWTwCvHGwFuJlMjvLFqlGG6pjirPhtdsseaLZjSibD8eegzmYpUZwoIlj2cQ==}
     engines: {node: '>=4.0'}
+
+  kafkajs@2.2.4:
+    resolution: {integrity: sha512-j/YeapB1vfPT2iOIUn/vxdyKEuhuY2PxMBvf5JWux6iSaukAccrMtXEY/Lb7OvavDhOWME589bpLrEdnVHjfjA==}
+    engines: {node: '>=14.0.0'}
 
   kareem@3.3.0:
     resolution: {integrity: sha512-kpSuLD3/7RenBnjnJdOHXCKC8dTd1JzeOiJhN0necWWci6cC+qX+VuwPnMVgb+a4+KNJSfgqahpnfWaeDXCimw==}
@@ -6800,6 +6826,8 @@ snapshots:
       array.prototype.flat: 1.3.3
       object.assign: 4.1.7
       object.values: 1.2.1
+
+  kafkajs@2.2.4: {}
 
   kareem@3.3.0: {}
 

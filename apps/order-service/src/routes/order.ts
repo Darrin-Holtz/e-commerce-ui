@@ -1,6 +1,6 @@
 import { FastifyInstance } from "fastify";
 import { shouldBeAdmin, shouldBeUser } from "../middleware/authMiddleware.js";
-import { Order } from "@repo/order-db";
+import { Order } from "@e-commerce-ui/order-db";
 
 export const orderRoute = async (fastify: FastifyInstance) => {
   fastify.get(

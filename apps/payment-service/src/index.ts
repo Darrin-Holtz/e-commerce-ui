@@ -7,6 +7,7 @@ import productRoute from './routes/product.route.js'
 import webhooksRoute from './routes/webhooks.route.js'
 import { cors } from 'hono/cors'
 import { logger } from 'hono/logger'
+import { consumer, producer } from './utils/kafka.js'
 
 const app = new Hono()
 
@@ -40,6 +41,7 @@ app.get('/test',shouldBeUser, (c) => {
 
 const start = async () => {
   try{
+    Promise.all([ await producer.connect(), await consumer.connect()])
     serve({
       fetch: app.fetch,
       port: 8002,

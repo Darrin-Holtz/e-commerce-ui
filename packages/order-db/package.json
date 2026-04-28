@@ -1,5 +1,5 @@
 {
-    "name": "@repo/order-db",
+    "name": "@e-commerce-ui/order-db",
     "version": "0.0.0",
     "type": "module",
     "scripts": {

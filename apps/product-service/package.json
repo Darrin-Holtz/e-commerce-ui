@@ -17,7 +17,8 @@
     "@clerk/express": "^2.1.7",
     "cors": "^2.8.6",
     "express": "^5.2.1",
-    "@e-commerce-ui/product-db": "workspace:*"
+    "@e-commerce-ui/product-db": "workspace:*",
+    "@e-commerce-ui/kafka": "workspace:*"
   },
   "devDependencies": {
     "@e-commerce-ui/typescript-config": "workspace:*",

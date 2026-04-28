@@ -1,40 +1,45 @@
-import Fastify from 'fastify';
-import { clerkPlugin, getAuth } from '@clerk/fastify';
-import { shouldBeUser } from './middleware/authMiddleware.js';
-import { connectOrderDB } from '@repo/order-db';
-import { orderRoute } from './routes/order.js';
+import Fastify from "fastify";
+import { clerkPlugin } from "@clerk/fastify";
+import { shouldBeUser } from "./middleware/authMiddleware.js";
+import { connectOrderDB } from "@e-commerce-ui/order-db";
+import { orderRoute } from "./routes/order.js";
+import { consumer, producer } from "./utils/kafka.js";
+import { runKafkaSubscriptions } from "./utils/subscriptions.js";
 
-const fastify = Fastify({ logger: true });
+const fastify = Fastify();
 
-fastify.get('/', async (request, reply) => {
-  return reply.send('Order endpoint works!');
+fastify.register(clerkPlugin);
+
+fastify.get("/health", (request, reply) => {
+  return reply.status(200).send({
+    status: "ok",
+    uptime: process.uptime(),
+    timestamp: Date.now(),
+  });
 });
 
-fastify.register(clerkPlugin)
-
-fastify.get('/health', async () => {
-  return {
-    service: 'order-service',
-    status: 'ok',
-    port: 8001,
-  };
+fastify.get("/test", { preHandler: shouldBeUser }, (request, reply) => {
+  return reply.send({
+    message: "Order service is authenticated!",
+    userId: request.userId,
+  });
 });
 
-fastify.get('/test', { preHandler: shouldBeUser }, async (request, reply) => {  
-   return reply.send({ message: "Order service is Authenticated!", userId: request.userId });
-});
-
-fastify.register(orderRoute)
+fastify.register(orderRoute);
 
 const start = async () => {
   try {
-    await connectOrderDB();
+    Promise.all([
+      await connectOrderDB(),
+      await producer.connect(),
+      await consumer.connect(),
+    ]);
+    await runKafkaSubscriptions();
     await fastify.listen({ port: 8001 });
-    console.log('Order service is running on port 8001');
+    console.log("Order service is running on port 8001");
   } catch (err) {
-    fastify.log.error(err);
+    console.log(err);
     process.exit(1);
   }
-}
-
+};
 start();

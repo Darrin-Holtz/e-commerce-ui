@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@e-commerce-ui/product-db": "workspace:*",
+    "@e-commerce-ui/order-db": "workspace:*",
     "zod": "^3.24.2"
   },
   "devDependencies": {

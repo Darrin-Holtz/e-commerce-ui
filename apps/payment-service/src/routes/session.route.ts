@@ -75,6 +75,14 @@ sessionRoute.get("/:session_id", async (c) => {
       paymentStatus: session.payment_status,
       userId: session.client_reference_id,
       mode: session.mode,
+      amountTotal: session.amount_total,
+      currency: session.currency,
+      customerEmail: session.customer_details?.email,
+      lineItems: session.line_items?.data.map((item) => ({
+        description: item.description,
+        quantity: item.quantity,
+        amountTotal: item.amount_total,
+      })),
     });
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);
