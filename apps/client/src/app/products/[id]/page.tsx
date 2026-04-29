@@ -3,29 +3,46 @@ import { ProductType } from "@e-commerce-ui/types";
 import Image from "next/image";
 
 // TEMPORARY
-const baseProduct: ProductType = {
-  id: 1,
-  name: "Adidas CoreFit T-Shirt",
-  shortDescription:
-    "Lorem ipsum dolor sit amet consect adipisicing elit lorem ipsum dolor sit.",
-  description:
-    "Lorem ipsum dolor sit amet consect adipisicing elit lorem ipsum dolor sit. Lorem ipsum dolor sit amet consect adipisicing elit lorem ipsum dolor sit. Lorem ipsum dolor sit amet consect adipisicing elit lorem ipsum dolor sit.",
-  price: 59.9,
-  sizes: ["xs", "s", "m", "l", "xl"],
-  colors: ["gray", "purple", "green"],
-  images: {
-    gray: "/products/1g.png",
-    purple: "/products/1p.png",
-    green: "/products/1gr.png",
-  },
+// const product: ProductType = {
+//   id: 1,
+//   name: "Adidas CoreFit T-Shirt",
+//   shortDescription:
+//     "Lorem ipsum dolor sit amet consect adipisicing elit lorem ipsum dolor sit.",
+//   description:
+//     "Lorem ipsum dolor sit amet consect adipisicing elit lorem ipsum dolor sit. Lorem ipsum dolor sit amet consect adipisicing elit lorem ipsum dolor sit. Lorem ipsum dolor sit amet consect adipisicing elit lorem ipsum dolor sit.",
+//   price: 59.9,
+//   sizes: ["xs", "s", "m", "l", "xl"],
+//   colors: ["gray", "purple", "green"],
+//   images: {
+//     gray: "/products/1g.png",
+//     purple: "/products/1p.png",
+//     green: "/products/1gr.png",
+//   },
+//   categorySlug: "test",
+//   createdAt: new Date(),
+//   updatedAt: new Date(),
+// };
+
+const fetchProduct = async (id: string) => {
+  const res = await fetch(
+    `${process.env.PRODUCT_SERVICE_URL}/products/${id}`
+  );
+  if (!res.ok) throw new Error(`Failed to fetch product: ${res.status}`);
+  const data: ProductType = await res.json();
+  return data;
 };
 
-export const generateMetadata = async () => {
-  // TODO:get the product from db
-  // TEMPORARY
+export const generateMetadata = async ({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) => {
+    const { id } = await params;
+
+  const product = await fetchProduct(id);
   return {
-    title: baseProduct.name,
-    describe: baseProduct.description,
+    title: product.name,
+    describe: product.description,
   };
 };
 
@@ -36,14 +53,10 @@ const ProductPage = async ({
   params: Promise<{ id: string }>;
   searchParams: Promise<{ color: string; size: string }>;
 }) => {
-  const { id } = await params;
   const { size, color } = await searchParams;
+  const { id } = await params;
 
-  const parsedId = Number(id);
-  const product: ProductType = {
-    ...baseProduct,
-    id: Number.isFinite(parsedId) ? parsedId : id,
-  };
+  const product = await fetchProduct(id);
 
   const selectedSize = size || (product.sizes[0] as string);
   const selectedColor = color || (product.colors[0] as string);
@@ -52,7 +65,9 @@ const ProductPage = async ({
       {/* IMAGE */}
       <div className="w-full lg:w-5/12 relative aspect-[2/3]">
         <Image
-          src={product.images[selectedColor]}
+          src={
+            (product.images as Record<string, string>)?.[selectedColor] || ""
+          }
           alt={product.name}
           fill
           className="object-contain rounded-md"
@@ -62,7 +77,7 @@ const ProductPage = async ({
       <div className="w-full lg:w-7/12 flex flex-col gap-4">
         <h1 className="text-2xl font-medium">{product.name}</h1>
         <p className="text-gray-500">{product.description}</p>
-        <h2 className="text-2xl font-semibold">${product.price.toFixed(2)}</h2>
+        <h2 className="text-2xl font-semibold">${Number(product.price).toFixed(2)}</h2>
         <ProductInteraction
           product={product}
           selectedSize={selectedSize}

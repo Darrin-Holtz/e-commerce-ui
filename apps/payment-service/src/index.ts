@@ -1,6 +1,6 @@
 import { serve } from '@hono/node-server'
 import { Hono } from 'hono'
-import { clerkMiddleware } from '@hono/clerk-auth'
+import { clerkMiddleware } from '@clerk/hono'
 import { shouldBeUser } from './middleware/authMiddleware.js'
 import sessionRoute from './routes/session.route.js'
 import productRoute from './routes/product.route.js'

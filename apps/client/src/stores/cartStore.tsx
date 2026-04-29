@@ -16,11 +16,15 @@ const useCartStore = create<CartStoreStateType & CartStoreActionsType>()(
                 );
                 
                 if (existingProductIndex !== -1) {
-                    const updatedCart = [...state.cart];
-                    updatedCart[existingProductIndex].quantity += product.quantity || 1;
-                    return { cart: updatedCart };
+                    return {
+                        cart: state.cart.map((item, index) =>
+                            index === existingProductIndex
+                                ? { ...item, quantity: item.quantity + (product.quantity || 1) }
+                                : item
+                        ),
+                    };
                 } else {
-                    return { cart: [...state.cart, { ...product, quantity: 1, selectedSize: product.selectedSize, selectedColor: product.selectedColor }] };
+                    return { cart: [...state.cart, { ...product, quantity: product.quantity || 1, selectedSize: product.selectedSize, selectedColor: product.selectedColor }] };
                 }
 
             }),

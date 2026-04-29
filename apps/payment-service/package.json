@@ -8,11 +8,11 @@
     "check-types": "tsc --noEmit"
   },
   "dependencies": {
-    "@hono/clerk-auth": "^3.1.1",
+    "@clerk/hono": "^0.1.19",
+    "@e-commerce-ui/kafka": "workspace:*",
     "@hono/node-server": "^1.19.14",
     "hono": "^4.12.14",
-    "stripe": "^22.1.0",
-    "@e-commerce-ui/kafka": "workspace:*"
+    "stripe": "^22.1.0"
   },
   "devDependencies": {
     "@e-commerce-ui/types": "workspace:*",

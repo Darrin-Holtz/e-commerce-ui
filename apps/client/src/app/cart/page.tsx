@@ -1,12 +1,11 @@
 "use client"
 
 import ShippingForm from "@/components/ShippingForm";
-import { ShippingFormInputs } from "@e-commerce-ui/types";
 import useCartStore from "@/stores/cartStore";
 import { ArrowRight, Trash2 } from "lucide-react";
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Suspense, useState } from "react";
+import { Suspense } from "react";
 import StripePaymentForm from "@/components/StripePaymentForm";
 
 const steps = [
