@@ -10,15 +10,13 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@e-commerce-ui/ui";
-import type { ProductType } from "@e-commerce-ui/types";
+import { ProductType } from "@e-commerce-ui/types";
 import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown, MoreHorizontal } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
-export type Product = ProductType;
-
-export const columns: ColumnDef<Product>[] = [
+export const columns: ColumnDef<ProductType>[] = [
   {
     id: "select",
     header: ({ table }) => (
@@ -45,14 +43,18 @@ export const columns: ColumnDef<Product>[] = [
       return (
         <div className="w-9 h-9 relative">
           <Image
-            src={product.images[product.colors[0]]}
+            src={
+              (product.images as Record<string, string>)?.[
+                product.colors[0] || ""
+              ] || ""
+            }
             alt={product.name}
             fill
-            className="object-cover"
+            className="rounded-full object-cover"
           />
         </div>
       );
-    }
+    },
   },
   {
     accessorKey: "name",
@@ -71,6 +73,7 @@ export const columns: ColumnDef<Product>[] = [
         </Button>
       );
     },
+    cell: ({ row }) => `$${Number(row.getValue("price")).toFixed(2)}`,
   },
   {
     accessorKey: "shortDescription",
@@ -92,15 +95,16 @@ export const columns: ColumnDef<Product>[] = [
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(product.id.toString())}
+              onClick={() =>
+                navigator.clipboard.writeText(product.id.toString())
+              }
             >
               Copy product ID
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem>
-              <Link href={`/products/${product.id}`}>View Product</Link>
+              <Link href={`/products/${product.id}`}>View product</Link>
             </DropdownMenuItem>
-            <DropdownMenuItem>View product details</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       );

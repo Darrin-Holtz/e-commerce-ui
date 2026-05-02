@@ -8,6 +8,18 @@ const nextConfig: NextConfig = {
 	},
 	allowedDevOrigins: ["*.app.github.dev", "*.github.dev"],
 	transpilePackages: ["@e-commerce-ui/types", "@e-commerce-ui/ui"],
+	images:{
+    remotePatterns:[    
+      {
+        protocol:"https",
+        hostname:"img.clerk.com",
+      },
+      {
+        protocol:"https",
+        hostname:"res.cloudinary.com",
+      }
+    ]
+  }
 };
 
 export default nextConfig;

@@ -3,7 +3,9 @@ import Navbar from "@/components/Navbar";
 import QueryProvider from "@/components/providers/QueryProvider";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import { SidebarProvider } from "@e-commerce-ui/ui";
+import { currentUser } from "@clerk/nextjs/server";
 import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 import { ToastContainer } from "react-toastify";
 
 export default async function RootLayout({
@@ -11,6 +13,11 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const user = await currentUser();
+  if (!user || user.publicMetadata?.role !== "admin") {
+    redirect("/unauthorized");
+  }
+
   const cookieStore = await cookies();
   const defaultOpen = cookieStore.get("sidebar_state")?.value === "true";
 

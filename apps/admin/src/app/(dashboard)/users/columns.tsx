@@ -11,18 +11,11 @@ import {
   DropdownMenuTrigger,
 } from "@e-commerce-ui/ui";
 import { cn } from "@/lib/utils";
+import { User } from "@clerk/nextjs/server";
 import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown, MoreHorizontal } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-
-export type User = {
-  id: string;
-  avatar: string;
-  fullName: string;
-  email: string;
-  status: "active" | "inactive";
-};
 
 export const columns: ColumnDef<User>[] = [
   {
@@ -48,22 +41,25 @@ export const columns: ColumnDef<User>[] = [
     header: "Avatar",
     cell: ({ row }) => {
       const user = row.original;
-      
       return (
         <div className="w-9 h-9 relative">
           <Image
-            src={user.avatar}
-            alt={user.fullName}
+            src={user.imageUrl}
+            alt={user.firstName || user.username || "-"}
             fill
             className="rounded-full object-cover"
           />
         </div>
       );
     },
-  },  
+  },
   {
-    accessorKey: "fullName",
+    accessorKey: "firstName",
     header: "User",
+    cell: ({ row }) => {
+      const user = row.original;
+      return <div className="">{user.firstName || user.username || "-"}</div>;
+    },
   },
   {
     accessorKey: "email",
@@ -78,26 +74,31 @@ export const columns: ColumnDef<User>[] = [
         </Button>
       );
     },
+    cell: ({ row }) => {
+      const user = row.original;
+      return <div className="">{user.emailAddresses[0]?.emailAddress}</div>;
+    },
   },
   {
     accessorKey: "status",
     header: "Status",
     cell: ({ row }) => {
-      const status = row.getValue("status");
+      const user = row.original
+      const status = user.banned ? "banned" : "active"
 
       return (
         <div
           className={cn(
             `p-1 rounded-md w-max text-xs`,
             status === "active" && "bg-green-500/40",
-            status === "inactive" && "bg-red-500/40"
+            status === "banned" && "bg-red-500/40"
           )}
         >
           {status as string}
         </div>
       );
     },
-  },  
+  },
   {
     id: "actions",
     cell: ({ row }) => {
@@ -120,8 +121,8 @@ export const columns: ColumnDef<User>[] = [
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem>
-              <Link href={`/users/${user.id}`}>View User</Link>
-            </DropdownMenuItem>            
+              <Link href={`/users/${user.id}`}>View customer</Link>
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       );

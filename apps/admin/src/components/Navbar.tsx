@@ -14,9 +14,11 @@ import {
 import { Button } from "@e-commerce-ui/ui";
 import { useTheme } from "next-themes";
 import { SidebarTrigger } from "@e-commerce-ui/ui";
+import { useClerk } from "@clerk/nextjs";
 
 const Navbar = () => {
   const { setTheme } = useTheme();
+  const { signOut } = useClerk();
   return (
     <nav className="p-4 flex items-center justify-between sticky top-0 bg-background z-10">
       {/* LEFT */}
@@ -67,7 +69,7 @@ const Navbar = () => {
               <Settings className="h-[1.2rem] w-[1.2rem] mr-2" />
               Settings
             </DropdownMenuItem>
-            <DropdownMenuItem variant="destructive">
+            <DropdownMenuItem variant="destructive" onClick={() => signOut({ redirectUrl: "/sign-in" })}>
               <LogOut className="h-[1.2rem] w-[1.2rem] mr-2" />
               Logout
             </DropdownMenuItem>
