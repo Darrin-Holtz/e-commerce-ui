@@ -1,4 +1,4 @@
-import { ProductType } from "./commerce.js";
+import { ProductType } from "./product.js";
 import z from "zod";
 
 export type CartItemType = ProductType & {

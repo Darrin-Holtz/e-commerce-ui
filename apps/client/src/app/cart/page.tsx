@@ -115,7 +115,7 @@ const CartPageContent = () => {
               <div className="flex items-center justify-between" key={item.id + item.selectedSize + item.selectedColor}>
                 <div className="flex gap-8">
                   <div className="relative w-32 h-32 bg-gray-50 rounded-lg overflow-hidden">
-                    <Image src={item.images[item.selectedColor]} alt={item.name} fill className="object-contain"/>
+                    <Image src={(item.images as Record<string, string>)[item.selectedColor]} alt={item.name} fill className="object-contain"/>
                   </div>
                   <div className="flex flex-col justify-between">
                     <div className="flex flex-col gap-1">
@@ -143,7 +143,7 @@ const CartPageContent = () => {
           <div className="flex flex-col gap-2">
             <div className="flex justify-between text-sm">
               <p className="text-gray-500">Subtotal</p>
-              <p className="font-medium">${cart.reduce((acc, item) => acc + item.price * item.quantity, 0).toFixed(2)}</p>
+              <p className="font-medium">${cart.reduce((acc, item) => acc + Number(item.price) * item.quantity, 0).toFixed(2)}</p>
             </div>
             <div className="flex justify-between text-sm">
               <p className="text-gray-500">Discount(10%)</p>
@@ -159,7 +159,7 @@ const CartPageContent = () => {
               <p className="font-medium">
                 $
                 {cart
-                  .reduce((acc, item) => acc + item.price * item.quantity, 0)
+                  .reduce((acc, item) => acc + Number(item.price) * item.quantity, 0)
                   .toFixed(2)}
               </p>
             </div>
