@@ -1,12 +1,12 @@
 {
     "name": "@e-commerce-ui/kafka",
     "version": "0.0.0",
-    "main": "./src/index.ts",
+    "main": "./dist/index.js",
     "type": "module",
     "scripts": {
         "check-types": "tsc --noEmit",
         "lint": "tsc --noEmit",
-        "build": "tsc --emitDeclarationOnly --outDir dist"
+        "build": "tsc"
     },
     "devDependencies": {
         "@e-commerce-ui/typescript-config": "workspace:*",

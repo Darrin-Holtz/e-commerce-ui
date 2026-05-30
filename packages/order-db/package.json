@@ -3,7 +3,8 @@
     "version": "0.0.0",
     "type": "module",
     "scripts": {
-        "check-types": "tsc --noEmit"
+        "check-types": "tsc --noEmit",
+        "build": "tsc"
     },
     "devDependencies": {
         "@e-commerce-ui/typescript-config": "workspace:*",
@@ -11,7 +12,7 @@
         "typescript": "^5"
     },
     "exports": {
-        ".": "./src/index.ts"
+        ".": "./dist/index.js"
     },
     "dependencies": {
         "mongoose": "^9.5.0"
