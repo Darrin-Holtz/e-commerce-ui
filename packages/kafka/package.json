@@ -2,6 +2,7 @@
     "name": "@e-commerce-ui/kafka",
     "version": "0.0.0",
     "main": "./dist/index.js",
+    "types": "./dist/index.d.ts",
     "type": "module",
     "scripts": {
         "check-types": "tsc --noEmit",
