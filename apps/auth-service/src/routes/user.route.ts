@@ -1,6 +1,6 @@
 import { Router } from "express";
-import clerkClient from "../utils/clerk";
-import { producer } from "../utils/kafka";
+import clerkClient from "../utils/clerk.js";
+import { producer } from "../utils/kafka.js";
 
 const router: Router = Router();
 

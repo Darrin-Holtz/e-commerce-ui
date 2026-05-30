@@ -1,6 +1,6 @@
 import { Hono } from "hono";
-import stripe from "../utils/stripe";
-import { shouldBeUser } from "../middleware/authMiddleware";
+import stripe from "../utils/stripe.js";
+import { shouldBeUser } from "../middleware/authMiddleware.js";
 
 const sessionRoute = new Hono();
 

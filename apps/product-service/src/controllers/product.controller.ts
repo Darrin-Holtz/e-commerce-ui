@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { prisma, Prisma } from "@e-commerce-ui/product-db";
-import { producer } from "../utils/kafka";
+import { producer } from "../utils/kafka.js";
 import { StripeProductType } from "@e-commerce-ui/types";
 
 export const createProduct = async (req: Request, res: Response) => {

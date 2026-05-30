@@ -1,6 +1,6 @@
 import { Order } from "@e-commerce-ui/order-db";
 import { OrderType } from "@e-commerce-ui/types";
-import { producer } from "./kafka";
+import { producer } from "./kafka.js";
 
 export const createOrder = async (order: OrderType) => {
   const newOrder = new Order(order);

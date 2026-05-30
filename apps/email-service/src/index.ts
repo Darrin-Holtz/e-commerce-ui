@@ -1,4 +1,4 @@
-import sendMail from "./utils/mailer";
+import sendMail from "./utils/mailer.js";
 import { createConsumer, createKafkaClient } from "@e-commerce-ui/kafka";
 
 const kafka = createKafkaClient("email-service");
