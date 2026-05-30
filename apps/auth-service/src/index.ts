@@ -6,12 +6,13 @@ import userRoute from "./routes/user.route";
 import { producer } from "./utils/kafka.js";
 
 const app = express();
+const allowedOrigins = process.env.CORS_ORIGINS
+  ? process.env.CORS_ORIGINS.split(",")
+  : ["http://localhost:3001"];
+
 app.use(
   cors({
-    origin: [
-      "http://localhost:3001",
-      "https://scaling-waffle-9767pxgqv7j7c7p7v-3001.app.github.dev",
-    ],
+    origin: allowedOrigins,
     credentials: true,
   })
 );
