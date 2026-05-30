@@ -11,6 +11,7 @@ const fetchOrders = async () => {
       headers: {
         Authorization: `Bearer ${token}`,
       },
+      cache: "no-store",
     }
   );
 

@@ -1,5 +1,5 @@
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
-import { NextResponse, type NextRequest, type NextFetchEvent } from "next/server";
+import { NextRequest, NextResponse, type NextFetchEvent } from "next/server";
 
 const isPublicRoute = createRouteMatcher(["/sign-in(.*)","/unauthorized(.*)"]);
 
@@ -10,35 +10,8 @@ const authorizedParties = [
     : undefined,
 ].filter(Boolean) as string[];
 
-// In GitHub Codespaces the tunnel relay attaches a Microsoft/Azure Bearer
-// token in the Authorization header for forwarded requests. Clerk would
-// otherwise try to validate it as a session token (token-carrier=header)
-// and fail with `jwk-kid-mismatch`. Strip it so Clerk uses the cookie.
-function stripCodespacesAuthHeader(req: NextRequest) {
-  const authz = req.headers.get("authorization");
-  if (authz && authz.startsWith("Bearer ")) {
-    try {
-      const payloadB64 = authz.slice(7).split(".")[1];
-      if (payloadB64) {
-        const payload = JSON.parse(
-          Buffer.from(payloadB64, "base64").toString("utf8")
-        );
-        if (
-          typeof payload.iss === "string" &&
-          payload.iss.includes("sts.windows.net")
-        ) {
-          req.headers.delete("authorization");
-        }
-      }
-    } catch {
-      // ignore — not a JWT we recognise
-    }
-  }
-}
-
 const clerk = clerkMiddleware(async (auth, req) => {
   const a = await auth();
-  console.log("[mw]", req.nextUrl.pathname, "userId:", a.userId, "authz:", req.headers.get("authorization")?.slice(0, 30) ?? "none", "hasSession:", req.cookies.has("__session"), "reason:", a.debug?.()?.reason);
 
   // Redirect already-signed-in users away from the sign-in page
   if (a.userId && req.nextUrl.pathname.startsWith("/sign-in")) {
@@ -46,16 +19,28 @@ const clerk = clerkMiddleware(async (auth, req) => {
   }
 
   if (!isPublicRoute(req)) {
-    // Only check authentication here. Role-based authorization is handled
-    // in the dashboard layout using currentUser() for fresh, reliable data.
     await auth.protect();
   }
+  // Let Clerk return its own NextResponse so its `x-middleware-*` override
+  // headers reach downstream RSCs (otherwise `auth()` in server components
+  // throws "Clerk can't detect usage of clerkMiddleware()").
 }, { authorizedParties });
 
+// GitHub Codespaces previously injected an Azure AD `Authorization: Bearer`
+// header on proxied requests, which Clerk would mistakenly try to verify
+// (jwk-kid-mismatch) and ignore the valid `__session` cookie. We strip that
+// header before handing the request to clerkMiddleware. We must NOT touch
+// Clerk's own response headers afterwards — Clerk uses an
+// `x-middleware-override-headers` protocol to signal "middleware ran" to
+// downstream RSCs, and overwriting it breaks `auth()` in server components
+// with: "Clerk can't detect usage of clerkMiddleware()".
 export default function middleware(req: NextRequest, evt: NextFetchEvent) {
-  // Must run BEFORE clerkMiddleware reads the request
-  stripCodespacesAuthHeader(req);
-  return clerk(req, evt);
+  if (!req.headers.has("authorization")) {
+    return clerk(req, evt);
+  }
+  const headers = new Headers(req.headers);
+  headers.delete("authorization");
+  return clerk(new NextRequest(req, { headers }), evt);
 }
 
 export const config = {

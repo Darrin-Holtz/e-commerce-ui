@@ -1,4 +1,5 @@
 import Link from "next/link";
+import ClearCartOnSuccess from "@/components/ClearCartOnSuccess";
 
 type SessionData = {
   status?: string;
@@ -48,6 +49,7 @@ const ReturnPage = async ({
   return (
     <div className="max-w-lg mx-auto mt-16 p-8 rounded-xl border bg-white shadow-sm space-y-6">
       <div className="text-center space-y-2">
+        {isSuccess && <ClearCartOnSuccess />}
         <h1 className="text-2xl font-semibold">
           {isSuccess ? "Payment successful!" : `Payment ${data.status ?? "unknown"}`}
         </h1>
@@ -94,7 +96,7 @@ const ReturnPage = async ({
         href="/orders"
         className="block w-full text-center bg-black text-white text-sm font-medium py-2.5 rounded-lg hover:bg-gray-800 transition-colors"
       >
-        See your orders
+        {isSuccess ? "Redirecting to orders…" : "See your orders"}
       </Link>
     </div>
   );

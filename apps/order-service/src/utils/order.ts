@@ -6,16 +6,17 @@ export const createOrder = async (order: OrderType) => {
   const newOrder = new Order(order);
 
   try {
-    const order = await newOrder.save();
+    const savedOrder = await newOrder.save();
+    console.log("[order-service] Order saved:", savedOrder._id);
     await producer.send("order.created", {
       value: {
-        email: order.email,
-        amount: order.amount,
-        status: order.status,
+        email: savedOrder.email,
+        amount: savedOrder.amount,
+        status: savedOrder.status,
       },
     });
 } catch (error) {
-    console.log(error);
+    console.error("[order-service] Failed to save order:", error);
     throw error;
   }
 };

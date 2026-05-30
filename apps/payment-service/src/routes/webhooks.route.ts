@@ -15,7 +15,10 @@ webhookRoute.get("/", (c) => {
 });
 
 
-webhookRoute.post("/stripe", async (c) => {
+webhookRoute.post("/stripe", handleStripeWebhook);
+webhookRoute.post("/stripe/", handleStripeWebhook);
+
+async function handleStripeWebhook(c: any) {
   const body = await c.req.text();
   const sig = c.req.header("stripe-signature");
 
@@ -38,14 +41,14 @@ webhookRoute.post("/stripe", async (c) => {
       // TODO: CREATE ORDER
       await producer.send("payment.successful", {
         value: {
-          userId: session.client_reference_id,
-          email: session.customer_details?.email,
-          amount: session.amount_total,
+          userId: session.client_reference_id ?? "",
+          email: session.customer_details?.email ?? "",
+          amount: session.amount_total ?? 0,
           status: session.payment_status === "paid" ? "success" : "failed",
           products: lineItems.data.map((item) => ({
-            name: item.description,
-            quantity: item.quantity,
-            price: item.price?.unit_amount,
+            name: item.description ?? "Unknown item",
+            quantity: item.quantity ?? 1,
+            price: item.price?.unit_amount ?? 0,
           })),
         },
       });
@@ -56,6 +59,6 @@ webhookRoute.post("/stripe", async (c) => {
       break;
   }
   return c.json({ received: true });
-});
+}
 
 export default webhookRoute;

@@ -15,7 +15,9 @@
     },
     "dev": {
       "cache": false,
-      "persistent": true
+      "persistent": true,
+      "env": ["CODESPACE_NAME"],
+      "passThroughEnv": ["CODESPACE_NAME"]
     },
     "db:generate": {
       "cache": false

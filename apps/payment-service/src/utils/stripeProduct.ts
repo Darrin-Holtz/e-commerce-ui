@@ -32,6 +32,9 @@ export const getStripeProductPrice = async (productId: number) => {
 
 export const deleteStripeProduct = async (productId: number) => {
   try {
+    // Deactivate all active prices first (Stripe requires this before deletion)
+    const prices = await stripe.prices.list({ product: productId.toString(), active: true });
+    await Promise.all(prices.data.map((p) => stripe.prices.update(p.id, { active: false })));
     const res = await stripe.products.del(productId.toString());
     return res;
   } catch (error) {

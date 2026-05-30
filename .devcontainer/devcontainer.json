@@ -1,0 +1,21 @@
+{
+  "name": "e-commerce-ui",
+  "portsAttributes": {
+    "3000": {
+      "label": "client",
+      "visibility": "public"
+    },
+    "3001": {
+      "label": "admin",
+      "visibility": "public"
+    },
+    "8001": {
+      "label": "order-service",
+      "visibility": "public"
+    },
+    "8002": {
+      "label": "payment-service",
+      "visibility": "public"
+    }
+  }
+}
