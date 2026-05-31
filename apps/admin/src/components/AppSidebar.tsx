@@ -10,6 +10,7 @@ import {
   Shirt,
   User,
   ShoppingBasket,
+  Tag,
 } from "lucide-react";
 import {
   Sidebar,
@@ -133,6 +134,14 @@ const AppSidebar = () => {
                     </SheetTrigger>
                     <AddProduct />
                   </Sheet>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+              <SidebarMenuItem>
+                <SidebarMenuButton asChild>
+                  <Link href="/categories">
+                    <Tag />
+                    See All Categories
+                  </Link>
                 </SidebarMenuButton>
               </SidebarMenuItem>
               <SidebarMenuItem>
