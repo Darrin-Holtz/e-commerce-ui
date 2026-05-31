@@ -22,6 +22,18 @@ const getSafeRedirectPath = (rawRedirectUrl?: string | null) => {
   }
 }
 
+const authorizedParties = [
+  'http://localhost:3000',
+  process.env.CODESPACE_NAME
+    ? `https://${process.env.CODESPACE_NAME}-3000.app.github.dev`
+    : undefined,
+  process.env.VERCEL_PROJECT_PRODUCTION_URL
+    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+    : undefined,
+  process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : undefined,
+  'https://e-commerce-ui-client-three.vercel.app',
+].filter(Boolean) as string[]
+
 const clerkHandler = clerkMiddleware(async (auth, req) => {
   const { userId } = await auth()
 
@@ -33,7 +45,7 @@ const clerkHandler = clerkMiddleware(async (auth, req) => {
   if (!isPublicRoute(req)) {
     await auth.protect()
   }
-})
+}, { authorizedParties })
 
 // GitHub Codespaces injects an Azure AD Authorization: Bearer header on every proxied
 // request. Clerk v7 hardcodes acceptsToken:'any' so it picks up that foreign token,
