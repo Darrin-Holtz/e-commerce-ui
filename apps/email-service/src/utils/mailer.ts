@@ -1,16 +1,3 @@
-import nodemailer from "nodemailer";
-
-const transporter = nodemailer.createTransport({
-  service: "gmail",
-  auth: {
-    type: "OAuth2",
-    user: "darrinholtz@gmail.com",
-    clientId: process.env.GOOGLE_CLIENT_ID,
-    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    refreshToken: process.env.GOOGLE_REFRESH_TOKEN,
-  },
-});
-
 const sendMail = async ({
   email,
   subject,
@@ -20,14 +7,26 @@ const sendMail = async ({
   subject: string;
   text: string;
 }) => {
-  const res = await transporter.sendMail({
-    from: '"Lama Dev Ecommerce App" <darrinholtz@gmail.com>',
-    to: email,
-    subject,
-    text,
+  const res = await fetch("https://api.sendgrid.com/v3/mail/send", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${process.env.SENDGRID_API_KEY}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      personalizations: [{ to: [{ email }] }],
+      from: { email: "darrinholtz@gmail.com", name: "Lama Dev Ecommerce App" },
+      subject,
+      content: [{ type: "text/plain", value: text }],
+    }),
   });
 
-  console.log("MESSAGE SENT:", res);
+  if (!res.ok) {
+    const body = await res.text();
+    throw new Error(`SendGrid error ${res.status}: ${body}`);
+  }
+
+  console.log("MESSAGE SENT to", email);
 };
 
 export default sendMail;

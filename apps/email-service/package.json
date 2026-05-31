@@ -15,12 +15,10 @@
   "packageManager": "pnpm@10.32.1",
   "devDependencies": {
     "@e-commerce-ui/kafka": "workspace:*",
-    "@e-commerce-ui/types": "workspace:*",
-    "@types/nodemailer": "^8.0.0"
+    "@e-commerce-ui/types": "workspace:*"
   },
   "dependencies": {
     "@e-commerce-ui/typescript-config": "workspace:*",
-    "@types/node": "^25.6.0",
-    "nodemailer": "^8.0.7"
+    "@types/node": "^25.6.0"
   }
 }
