@@ -21,6 +21,8 @@ import {
 import { DataTablePagination } from "@/components/TablePagination";
 import { useState } from "react";
 import { Trash2 } from "lucide-react";
+import { deleteProducts } from "./actions";
+import { toast } from "react-toastify";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -33,6 +35,7 @@ export function DataTable<TData, TValue>({
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [rowSelection, setRowSelection] = useState({});
+  const [isDeleting, setIsDeleting] = useState(false);
 
   const table = useReactTable({
     data,
@@ -48,14 +51,33 @@ export function DataTable<TData, TValue>({
     },
   });
 
-  console.log(table);
+  const handleDelete = async () => {
+    const ids = table
+      .getSelectedRowModel()
+      .rows.map((row) => (row.original as { id: number }).id);
+    setIsDeleting(true);
+    try {
+      await deleteProducts(ids);
+      setRowSelection({});
+      toast.success(`Deleted ${ids.length} product(s).`);
+    } catch {
+      toast.error("Failed to delete product(s). Please try again.");
+    } finally {
+      setIsDeleting(false);
+    }
+  };
+
   return (
     <div className="rounded-md border">
       {Object.keys(rowSelection).length > 0 && (
         <div className="flex justify-end">
-          <button className="flex items-center gap-2 bg-red-500 text-white px-2 py-1 text-sm rounded-md m-4 cursor-pointer">
+          <button
+            onClick={handleDelete}
+            disabled={isDeleting}
+            className="flex items-center gap-2 bg-red-500 text-white px-2 py-1 text-sm rounded-md m-4 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+          >
             <Trash2 className="w-4 h-4"/>
-            Delete Product(s)
+            {isDeleting ? "Deleting..." : "Delete Product(s)"}
           </button>
         </div>
       )}
