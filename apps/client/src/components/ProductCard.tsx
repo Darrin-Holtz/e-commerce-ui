@@ -48,7 +48,7 @@ const ProductCard = ({product}: {product: ProductType}) => {
                 <div className="flex flex-col gap-1">
                     <span className="text-gray-500">Size</span>
                     <select name="size" id="size" className="ring ring-gray-300 rounded-md px-2 py-1" onChange={(e) => handleProductType({type: "size", value: e.target.value})}>
-                        {product.sizes.map((size) => (
+                        {product.sizes.map((size: string) => (
                             <option key={size} value={size}>{size.toLocaleUpperCase()}</option>
                         ))}
                     </select>
