@@ -151,8 +151,9 @@ const fetchData = async ({
   search?: string;
   params: "homepage" | "products";
 }) => {
+  const showAll = !category || category === "all";
   const res = await fetch(
-    `${process.env.PRODUCT_SERVICE_URL}/products?${category ? `category=${category}` : ""}${search ? `&search=${search}` : ""}&sort=${sort || "newest"}${params === "homepage" ? "&limit=8" : ""}`
+    `${process.env.PRODUCT_SERVICE_URL}/products?${!showAll ? `category=${category}` : ""}${search ? `&search=${search}` : ""}&sort=${sort || "newest"}${showAll ? "&limit=8" : ""}`
   );
   if (!res.ok) return [];
   const data: ProductType[] = await res.json();

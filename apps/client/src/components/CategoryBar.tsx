@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { ShoppingBasket, Tag } from "lucide-react";
 
@@ -11,6 +12,14 @@ const CategoryBar = ({ categories }: { categories: Category[] }) => {
   const pathname = usePathname();
 
   const selectedCategory = searchParams.get("category");
+
+  useEffect(() => {
+    if (!selectedCategory) {
+      const params = new URLSearchParams(searchParams.toString());
+      params.set("category", "all");
+      router.replace(`${pathname}?${params.toString()}`, { scroll: false });
+    }
+  }, []);
 
   const handleChange = (slug: string) => {
     const params = new URLSearchParams(searchParams.toString());
