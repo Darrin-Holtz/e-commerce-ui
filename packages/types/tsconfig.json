@@ -1,3 +1,7 @@
 {
-  "extends": "@e-commerce-ui/typescript-config/node-service.json"
+  "extends": "@e-commerce-ui/typescript-config/node-service.json",
+  "compilerOptions": {
+    "declaration": true,
+    "noEmit": false
+  }
 }
