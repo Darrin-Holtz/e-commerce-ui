@@ -3,7 +3,13 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
 	experimental: {
 		serverActions: {
-			allowedOrigins: ["*.app.github.dev", "*.github.dev", "localhost:3000"],
+			allowedOrigins: [
+				"*.app.github.dev",
+				"*.github.dev",
+				"localhost:3000",
+				"e-commerce-ui-client-three.vercel.app",
+				"*.vercel.app",
+			],
 		},
 	},
 	allowedDevOrigins: ["*.app.github.dev", "*.github.dev"],
