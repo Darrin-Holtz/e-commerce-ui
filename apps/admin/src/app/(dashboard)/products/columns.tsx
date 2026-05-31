@@ -102,8 +102,14 @@ export const columns: ColumnDef<ProductType>[] = [
               Copy product ID
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>
-              <Link href={`/products/${product.id}`}>View product</Link>
+            <DropdownMenuItem asChild>
+              <Link
+                href={`${process.env.NEXT_PUBLIC_CLIENT_URL}/products/${product.id}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                View product
+              </Link>
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
