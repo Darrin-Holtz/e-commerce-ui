@@ -9,6 +9,12 @@ const authorizedParties = [
     ? `https://${process.env.CODESPACE_NAME}-3001.app.github.dev`
     : undefined,
   process.env.NEXT_PUBLIC_APP_URL ?? undefined,
+  // Vercel production alias (stable)
+  process.env.VERCEL_PROJECT_PRODUCTION_URL
+    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+    : undefined,
+  // Vercel deployment URL (preview + production)
+  process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : undefined,
   "https://e-commerce-ui-admin.vercel.app",
 ].filter(Boolean) as string[];
 
