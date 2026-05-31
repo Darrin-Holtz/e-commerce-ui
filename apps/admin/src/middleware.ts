@@ -8,6 +8,8 @@ const authorizedParties = [
   process.env.CODESPACE_NAME
     ? `https://${process.env.CODESPACE_NAME}-3001.app.github.dev`
     : undefined,
+  process.env.NEXT_PUBLIC_APP_URL ?? undefined,
+  "https://e-commerce-ui-admin.vercel.app",
 ].filter(Boolean) as string[];
 
 const clerk = clerkMiddleware(async (auth, req) => {
