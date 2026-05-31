@@ -41,20 +41,18 @@ app.get('/test',shouldBeUser, (c) => {
 })
 
 const start = async () => {
-  try{
-    Promise.all([ await producer.connect(), await consumer.connect()])
-    await runKafkaSubscriptions()
-    const port = parseInt(process.env.PORT || "8002", 10);
-    serve({
-      fetch: app.fetch,
-      port,
-      hostname: "0.0.0.0",
-    })
-    console.log(`Payment service is running on port ${port}`)
-  } catch (error) {
-    console.error('Error starting server:', error)
-    process.exit(1)
-  }
-}
+  const port = parseInt(process.env.PORT || "8002", 10);
+  serve({
+    fetch: app.fetch,
+    port,
+    hostname: "0.0.0.0",
+  });
+  console.log(`Payment service is running on port ${port}`);
 
-start()
+  // Connect Kafka after HTTP server is up so port binding never blocks
+  Promise.all([producer.connect(), consumer.connect()])
+    .then(() => runKafkaSubscriptions())
+    .catch((error) => console.error("Kafka connection failed:", error));
+};
+
+start();

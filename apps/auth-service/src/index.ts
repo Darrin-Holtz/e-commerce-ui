@@ -37,16 +37,15 @@ app.use((err: any, req: Request, res: Response, next: NextFunction) => {
 });
 
 const start = async () => {
-  try {
-    await producer.connect();
-    const port = parseInt(process.env.PORT || "8003", 10);
-    app.listen(port, "0.0.0.0", () => {
-      console.log("Auth service is running on 8003");
-    });
-  } catch (error) {
-    console.log(error);
-    process.exit(1);
-  }
+  const port = parseInt(process.env.PORT || "8003", 10);
+  app.listen(port, "0.0.0.0", () => {
+    console.log(`Auth service is running on ${port}`);
+  });
+
+  // Connect Kafka after HTTP server is up so port binding never blocks
+  producer.connect().catch((error) => {
+    console.error("Kafka producer connection failed:", error);
+  });
 };
 
 start();

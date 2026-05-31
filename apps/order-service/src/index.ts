@@ -29,15 +29,15 @@ fastify.register(orderRoute);
 
 const start = async () => {
   try {
-    Promise.all([
-      await connectOrderDB(),
-      await producer.connect(),
-      await consumer.connect(),
-    ]);
-    await runKafkaSubscriptions();
+    await connectOrderDB();
     const port = parseInt(process.env.PORT || "8001", 10);
     await fastify.listen({ port, host: "0.0.0.0" });
     console.log(`Order service is running on port ${port}`);
+
+    // Connect Kafka after HTTP server is up so port binding never blocks
+    Promise.all([producer.connect(), consumer.connect()])
+      .then(() => runKafkaSubscriptions())
+      .catch((err) => console.error("Kafka connection failed:", err));
   } catch (err) {
     console.log(err);
     process.exit(1);
