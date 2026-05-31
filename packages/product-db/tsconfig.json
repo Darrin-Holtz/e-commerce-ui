@@ -8,5 +8,5 @@
     "noEmit": false,
     "declaration": true
   },
-  "include": ["src/**/*.ts", "prisma.config.ts"]
+  "include": ["src/**/*.ts"]
 }
