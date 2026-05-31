@@ -1,3 +1,4 @@
+import http from "http";
 import sendMail from "./utils/mailer.js";
 import { createConsumer, createKafkaClient } from "@e-commerce-ui/kafka";
 
@@ -41,5 +42,13 @@ const start = async () => {
     console.log(error);
   }
 };
+
+const port = parseInt(process.env.PORT || "8004", 10);
+http.createServer((_, res) => {
+  res.writeHead(200);
+  res.end("ok");
+}).listen(port, "0.0.0.0", () => {
+  console.log(`Email service health check on port ${port}`);
+});
 
 start();
