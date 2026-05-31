@@ -77,7 +77,7 @@ const OrdersPage = async () => {
             {/* Products */}
             {order.products?.length > 0 && (
               <div className="border-t border-gray-100 pt-4 flex flex-col gap-2">
-                {order.products.map((product, i) => (
+                {order.products.map((product: { name: string; price: number; quantity: number }, i) => (
                   <div key={i} className="flex items-center justify-between text-sm text-gray-600">
                     <span>{product.name}</span>
                     <span className="text-gray-400">
