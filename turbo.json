@@ -5,7 +5,26 @@
       "dependsOn": ["^build"],
       "inputs": ["$TURBO_DEFAULT$", ".env*"],
       "outputs": [".next/**", "!.next/cache/**", "dist/**"],
-      "env": ["DATABASE_URL"]
+      "env": [
+        "DATABASE_URL",
+        "CLERK_SECRET_KEY",
+        "NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY",
+        "NEXT_PUBLIC_CLERK_SIGN_IN_URL",
+        "NEXT_PUBLIC_CLERK_SIGN_UP_URL",
+        "NEXT_PUBLIC_CLERK_SIGN_IN_FALLBACK_REDIRECT_URL",
+        "NEXT_PUBLIC_CLERK_SIGN_UP_FALLBACK_REDIRECT_URL",
+        "NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY",
+        "PRODUCT_SERVICE_URL",
+        "ORDER_SERVICE_URL",
+        "PAYMENT_SERVICE_URL",
+        "PAYMENT_SERVICE_INTERNAL_URL",
+        "NEXT_PUBLIC_PRODUCT_SERVICE_URL",
+        "NEXT_PUBLIC_ORDER_SERVICE_URL",
+        "NEXT_PUBLIC_PAYMENT_SERVICE_URL",
+        "NEXT_PUBLIC_AUTH_SERVICE_URL",
+        "NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME",
+        "CLOUDINARY_URL"
+      ]
     },
     "lint": {
       "dependsOn": ["^lint"]
