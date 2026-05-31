@@ -44,11 +44,13 @@ const start = async () => {
   try{
     Promise.all([ await producer.connect(), await consumer.connect()])
     await runKafkaSubscriptions()
+    const port = parseInt(process.env.PORT || "8002", 10);
     serve({
       fetch: app.fetch,
-      port: 8002,
+      port,
+      hostname: "0.0.0.0",
     })
-    console.log('Payment service is running on http://localhost:8002')
+    console.log(`Payment service is running on port ${port}`)
   } catch (error) {
     console.error('Error starting server:', error)
     process.exit(1)

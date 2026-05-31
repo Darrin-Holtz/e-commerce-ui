@@ -40,7 +40,8 @@ app.use((err: any, req: Request, res: Response, next: Function) => {
 });
 
 const start = async () => {
-  app.listen(8000, () => {
+  const port = parseInt(process.env.PORT || "8000", 10);
+  app.listen(port, "0.0.0.0", () => {
     console.log("Product service is running on 8000");
   });
 
