@@ -2,6 +2,7 @@
 
 import ShippingForm from "@/components/ShippingForm";
 import useCartStore from "@/stores/cartStore";
+import { useAuth } from "@clerk/nextjs";
 import { ArrowRight, Trash2 } from "lucide-react";
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -82,7 +83,7 @@ const steps = [
 const CartPageContent = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
-  // const [shippingForm, setShippingForm] = useState<ShippingFormInputs | null>(null);
+  const { isSignedIn } = useAuth();
 
   const activeStep = parseInt(searchParams.get("step") || "1");
 
@@ -165,7 +166,16 @@ const CartPageContent = () => {
             </div>
           </div>
           {activeStep === 1 && (
-            <button className="w-full bg-gray-800 hover:bg-gray-500 transition-all duration-300 text-white p-2 rounded-lg cursor-pointer flex items-center justify-center gap-2" onClick={() => router.push("/cart?step=2", { scroll: false })}>
+            <button
+              className="w-full bg-gray-800 hover:bg-gray-500 transition-all duration-300 text-white p-2 rounded-lg cursor-pointer flex items-center justify-center gap-2"
+              onClick={() => {
+                if (!isSignedIn) {
+                  router.push('/sign-in?redirect_url=' + encodeURIComponent('/cart?step=2'))
+                  return
+                }
+                router.push("/cart?step=2", { scroll: false })
+              }}
+            >
               Continue
               <ArrowRight className="w-3 h-3"/>
             </button>

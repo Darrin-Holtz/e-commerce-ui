@@ -1,7 +1,15 @@
 import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server'
 import { type NextFetchEvent, NextRequest, NextResponse } from 'next/server'
 
-const isPublicRoute = createRouteMatcher(['/sign-in(.*)', '/sign-up(.*)'])
+const isPublicRoute = createRouteMatcher([
+  '/sign-in(.*)',
+  '/sign-up(.*)',
+  '/',
+  '/products(.*)',
+  '/cart(.*)',
+  '/return(.*)',
+  '/api/products(.*)',
+])
 
 const getSafeRedirectPath = (rawRedirectUrl?: string | null) => {
   if (!rawRedirectUrl) return '/'
