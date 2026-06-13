@@ -47,32 +47,33 @@ const ReturnPage = async ({
       : null;
 
   return (
-    <div className="max-w-lg mx-auto mt-16 p-8 rounded-xl border bg-white shadow-sm space-y-6">
+    <div className="max-w-lg mx-auto mt-16 p-8 rounded-xl border border-zinc-800 bg-zinc-900 space-y-6">
       <div className="text-center space-y-2">
         {isSuccess && <ClearCartOnSuccess />}
-        <h1 className="text-2xl font-semibold">
+        <div className="text-4xl mb-2">{isSuccess ? "⚡" : "⚠️"}</div>
+        <h1 className="text-2xl font-bold text-white">
           {isSuccess ? "Payment successful!" : `Payment ${data.status ?? "unknown"}`}
         </h1>
         {data.customerEmail && (
-          <p className="text-sm text-gray-500">
-            Confirmation sent to <span className="font-medium">{data.customerEmail}</span>
+          <p className="text-sm text-zinc-500">
+            Confirmation sent to <span className="text-zinc-300">{data.customerEmail}</span>
           </p>
         )}
       </div>
 
       {data.lineItems && data.lineItems.length > 0 && (
         <div className="space-y-2">
-          <h2 className="text-sm font-medium text-gray-700 uppercase tracking-wide">Order summary</h2>
-          <ul className="divide-y border rounded-lg overflow-hidden">
+          <h2 className="text-xs font-semibold text-volt uppercase tracking-widest">Order Summary</h2>
+          <ul className="divide-y divide-zinc-800 border border-zinc-800 rounded-lg overflow-hidden">
             {data.lineItems.map((item, i) => (
               <li key={i} className="flex justify-between items-center px-4 py-3 text-sm">
-                <span>
+                <span className="text-zinc-300">
                   {item.description ?? "Item"}{" "}
                   {item.quantity && item.quantity > 1 && (
-                    <span className="text-gray-500">× {item.quantity}</span>
+                    <span className="text-zinc-500">× {item.quantity}</span>
                   )}
                 </span>
-                <span className="font-medium">
+                <span className="font-medium text-white">
                   {item.amountTotal != null && data.currency
                     ? new Intl.NumberFormat("en-US", {
                         style: "currency",
@@ -84,9 +85,9 @@ const ReturnPage = async ({
             ))}
           </ul>
           {formattedTotal && (
-            <div className="flex justify-between px-4 py-2 text-sm font-semibold">
+            <div className="flex justify-between px-4 py-2 text-sm font-bold text-white">
               <span>Total</span>
-              <span>{formattedTotal}</span>
+              <span className="text-volt">{formattedTotal}</span>
             </div>
           )}
         </div>
@@ -94,9 +95,9 @@ const ReturnPage = async ({
 
       <Link
         href="/orders"
-        className="block w-full text-center bg-black text-white text-sm font-medium py-2.5 rounded-lg hover:bg-gray-800 transition-colors"
+        className="block w-full text-center bg-volt text-zinc-950 font-bold text-sm py-3 rounded-full uppercase tracking-widest hover:brightness-110 transition-all duration-200"
       >
-        {isSuccess ? "Redirecting to orders…" : "See your orders"}
+        {isSuccess ? "View Your Orders" : "See Your Orders"}
       </Link>
     </div>
   );

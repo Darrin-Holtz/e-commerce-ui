@@ -16,7 +16,11 @@ const NavbarAuthActions = () => {
   return (
     <>
       <Show when="signed-out">
-        <SignInButton forceRedirectUrl="/" fallbackRedirectUrl="/" />
+        <SignInButton forceRedirectUrl="/" fallbackRedirectUrl="/">
+          <button className="bg-volt text-zinc-950 font-bold text-xs px-5 py-2 rounded-full uppercase tracking-widest hover:brightness-110 transition-all duration-200 cursor-pointer">
+            Sign In
+          </button>
+        </SignInButton>
       </Show>
       <Show when="signed-in">
         <ProfileButton />

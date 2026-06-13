@@ -16,17 +16,15 @@ const SearchBar = () => {
   };
 
   return (
-    <div className="hidden sm:flex items-center gap-2 rounded-md ring-1 ring-gray-200 px-2 py-1 shadow-md">
-      <Search className="w-4 h-4 text-gray-500" />
+    <div className="hidden sm:flex items-center gap-2 bg-zinc-900 border border-zinc-800 rounded-full px-4 py-2 focus-within:border-volt transition-colors duration-200">
+      <Search className="w-4 h-4 text-zinc-500" />
       <input
         id="search"
         placeholder="Search..."
-        className="text-sm outline-0"
+        className="text-sm outline-none bg-transparent text-white placeholder:text-zinc-600 w-32"
         onChange={(e) => setValue(e.target.value)}
         onKeyDown={(e) => {
-          if (e.key === "Enter") {
-            handleSearch(value);
-          }
+          if (e.key === "Enter") handleSearch(value);
         }}
       />
     </div>

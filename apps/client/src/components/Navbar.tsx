@@ -1,30 +1,21 @@
 import Link from "next/link"
-import Image from "next/image"
 import SearchBar from "./SearchBar"
-import { Bell, Home } from "lucide-react"
 import ShoppingCartIcon from "./ShoppingCartIcon"
 import NavbarAuthActions from "./NavbarAuthActions"
 
 const Navbar = () => {
   return (
-    <nav className="w-full flex items-center justify-between border-b border-gray-200 pb-4">
-        <Link href="/" className="flex items-center">
-            <Image src="/logo.png" alt="TrendLama Logo" width={36} height={36} className="w-6 h-6 md:w-9 md:h-9"/>
-            <p className="hidden md:block text-md font-medium tracking-wider">TRENDLAMA</p>
+    <nav className="w-full flex items-center justify-between py-5 border-b border-zinc-800">
+      <Link href="/" className="font-[family-name:var(--font-bebas)] text-3xl tracking-widest text-volt leading-none">
+        VOLT
+      </Link>
+      <div className="flex items-center gap-6">
+        <SearchBar />
+        <Link href="/cart" title="Cart">
+          <ShoppingCartIcon />
         </Link>
-        <div className="flex items-center gap-6">
-            <SearchBar />
-            <Link href="/" title="Home">
-                <Home className="w-4 h-4 text-gray-600"/>
-            </Link>
-            <div title="Notifications">
-                <Bell className="w-4 h-4 text-gray-600"/>
-            </div>
-            <div title="Cart">
-                <ShoppingCartIcon />
-            </div>
-            <NavbarAuthActions />
-        </div>
+        <NavbarAuthActions />
+      </div>
     </nav>
   )
 }

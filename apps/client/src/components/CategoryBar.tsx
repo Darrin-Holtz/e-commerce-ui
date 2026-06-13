@@ -2,7 +2,6 @@
 
 import { useEffect } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { ShoppingBasket, Tag } from "lucide-react";
 
 type Category = { id: number; name: string; slug: string };
 
@@ -28,29 +27,29 @@ const CategoryBar = ({ categories }: { categories: Category[] }) => {
   };
 
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-2 bg-gray-100 p-2 rounded-lg mb-4 text-sm">
-      <div
+    <div className="flex flex-wrap gap-2 mb-6">
+      <button
         onClick={() => handleChange("all")}
-        className={`flex items-center justify-center gap-2 cursor-pointer px-2 py-1 rounded-md ${
+        className={`px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-widest transition-all duration-200 cursor-pointer ${
           !selectedCategory || selectedCategory === "all"
-            ? "bg-white"
-            : "text-gray-500"
+            ? "bg-volt text-zinc-950"
+            : "bg-zinc-800 text-zinc-400 hover:bg-zinc-700 hover:text-white"
         }`}
       >
-        <ShoppingBasket className="w-4 h-4" />
         All
-      </div>
+      </button>
       {categories.map((category) => (
-        <div
+        <button
           key={category.id}
           onClick={() => handleChange(category.slug)}
-          className={`flex items-center justify-center gap-2 cursor-pointer px-2 py-1 rounded-md ${
-            selectedCategory === category.slug ? "bg-white" : "text-gray-500"
+          className={`px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-widest transition-all duration-200 cursor-pointer ${
+            selectedCategory === category.slug
+              ? "bg-volt text-zinc-950"
+              : "bg-zinc-800 text-zinc-400 hover:bg-zinc-700 hover:text-white"
           }`}
         >
-          <Tag className="w-4 h-4" />
           {category.name}
-        </div>
+        </button>
       ))}
     </div>
   );
